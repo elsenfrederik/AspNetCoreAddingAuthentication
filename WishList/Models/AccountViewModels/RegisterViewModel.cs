@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WishList.Models.AccountViewModels
+{
+    public class RegisterViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; private set; }
+        [Required]
+        [StringLength(100, MinimumLength = 10)]
+        [DataType(DataType.Password)]
+        public string Password { get; private set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; private set; }
+
+    }
+}
