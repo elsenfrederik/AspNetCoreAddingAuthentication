@@ -53,8 +53,7 @@ namespace WishList.Controllers
             }
             return RedirectToAction("Index", "Item");
         }
-
-        [AllowAnonymous]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Logout(LoginViewModel loginViewModel)
