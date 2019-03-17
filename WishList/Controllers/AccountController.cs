@@ -37,9 +37,10 @@ namespace WishList.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(RegisterViewModel registerViewModel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel loginViewModel)
         {
-            return View("Login");
+            return RedirectToAction("Index", "Item");
         }
 
         [AllowAnonymous]
