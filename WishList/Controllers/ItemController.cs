@@ -21,7 +21,9 @@ namespace WishList.Controllers
 
         public IActionResult Index()
         {
-            var model = _context.Items.ToList();
+
+            var currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            var model = _context.Items.Where(i => i.User.Id == currentUser.Id).ToList();
 
             return View("Index", model);
         }
