@@ -30,10 +30,13 @@ namespace WishList.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
+                await _userManager.CreateAsync(
+                    new ApplicationUser {Email = registerViewModel.Email, UserName = registerViewModel.Email},
+                    "test1234");
                 return RedirectToAction("Index", "Home");
             }
 
