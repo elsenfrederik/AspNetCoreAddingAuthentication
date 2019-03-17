@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Design;
 using WishList.Data;
 using WishList.Models;
 
@@ -46,7 +47,14 @@ namespace WishList.Controllers
 
         public IActionResult Delete(int id)
         {
-            var item = _context.Items.FirstOrDefault(e => e.Id == id);
+
+            var currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            var item = _context.Items.FirstOrDefault(e => e.Id == id && e.User.Id == currentUser.Id);
+            if (item == null)
+            {
+                return Unauthorized();
+            }
+            
             _context.Items.Remove(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
