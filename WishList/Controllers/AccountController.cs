@@ -34,7 +34,14 @@ namespace WishList.Controllers
         {
             if (ModelState.IsValid)
             {
-                _userManager.CreateAsync(new ApplicationUser {Email = registerViewModel.Email, UserName = registerViewModel.Email},registerViewModel.Password);
+                var result =_userManager.CreateAsync(new ApplicationUser {Email = registerViewModel.Email, UserName = registerViewModel.Email},registerViewModel.Password);
+                if (!result.Result.Succeeded)
+                {
+                    foreach (var error in result.Result.Errors)
+                    {
+                        ModelState.AddModelError("Password",error.Description);
+                    }
+                }
 
                 return RedirectToAction("Index", "Home");
             }
