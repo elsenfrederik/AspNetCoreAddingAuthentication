@@ -56,6 +56,15 @@ namespace WishList.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout(LoginViewModel loginViewModel)
+        {
+             _signInManager.SignOutAsync();
+             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
