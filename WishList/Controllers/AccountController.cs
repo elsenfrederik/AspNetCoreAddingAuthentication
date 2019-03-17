@@ -29,6 +29,20 @@ namespace WishList.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login(RegisterViewModel registerViewModel)
+        {
+            return View("Login");
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
